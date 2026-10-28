@@ -90,9 +90,9 @@ input[type=password]{font-family:inherit;font-size:16px;padding:10px;border-radi
 <body>
 
 <div class="topbar">
-  <h1>🚀 عالم المستكشفين V3</h1>
+  <h1>عالم المستكشفين V3</h1>
   <div style="display:flex;gap:8px;align-items:center">
-    <span class="badge" id="totalBadge">⭐ 0</span>
+    <span class="badge" id="totalBadge">نجوم: 0</span>
     <button class="iconbtn" onclick="openPin()">⚙️</button>
   </div>
 </div>
@@ -120,8 +120,8 @@ input[type=password]{font-family:inherit;font-size:16px;padding:10px;border-radi
     <h3>⚙️ لوحة الوالدين</h3>
     <div id="stats"></div>
     <div class="row">
-      <button class="coral" onclick="resetStars()">🔄 تصفير النجوم</button>
-      <button class="ghost" onclick="changePin()">🔑 تغيير PIN</button>
+      <button class="coral" onclick="resetStars()">تصفير النجوم</button>
+      <button class="ghost" onclick="changePin()">تغيير PIN</button>
     </div>
     <div class="row"><button class="ghost" onclick="closePanel()" style="flex:1">إغلاق</button></div>
   </div>
@@ -179,27 +179,27 @@ function awardCapped(id,pts,cap){
   save(); renderBadge(); AudioFX.success(); return true;
 }
 function renderBadge(){
-  document.getElementById('totalBadge').textContent='⭐ '+SAVE.total;
+  document.getElementById('totalBadge').textContent='نجوم: '+SAVE.total;
   renderGrid();
 }
 
 const GAMES=[
   {n:1,ico:'🗺️',nm:'البحث عن الكنز',max:10},
   {n:2,ico:'🔍',nm:'الاستكشاف الطبيعي',max:15},
-  {n:3,ico:'🧪',nm:'مختبر المطبخ',max:15},
+  {n:3,ico:'⚗️',nm:'مختبر المطبخ',max:15},
   {n:4,ico:'🧭',nm:'لعبة الاتجاهات',max:20},
-  {n:5,ico:'🏗️',nm:'بناء الجسر',max:8},
+  {n:5,ico:'🌉',nm:'بناء الجسر',max:8},
   {n:6,ico:'🐾',nm:'آثار الحيوانات',max:12},
   {n:7,ico:'🌍',nm:'جواز السفر',max:15},
   {n:8,ico:'🔦',nm:'لعبة الظلال',max:5},
-  {n:9,ico:'🧩',nm:'صندوق اللمس',max:12},
+  {n:9,ico:'📦',nm:'صندوق اللمس',max:12},
   {n:10,ico:'🚀',nm:'رواد الفضاء',max:20}
 ];
 
 function renderGrid(){
   document.getElementById('grid').innerHTML=GAMES.map(g=>{
     const p=SAVE.played[g.n]||0, done=SAVE.completed[g.n];
-    return `<div class="card" onclick="open(${g.n})">
+    return `<div class="card" onclick="openGame(${g.n})">
       <span class="no">#${g.n}</span>
       ${p>0?`<span class="star">⭐${p}</span>`:''}
       ${done?`<span class="done-badge">✅</span>`:''}
@@ -225,10 +225,10 @@ function checkPin(){
 function openPanel(){
   const stats=GAMES.map(g=>{
     const p=SAVE.played[g.n]||0;
-    return `<div class="stat"><span>${g.ico} ${g.nm}</span><span>${p>0?'⭐'+p+'/'+g.max:'—'}</span></div>`;
+    return `<div class="stat"><span>${g.ico} ${g.nm}</span><span>${p>0?'نجوم '+p+'/'+g.max:'—'}</span></div>`;
   }).join('');
   document.getElementById('stats').innerHTML=
-    `<div class="stat" style="font-weight:800"><span>الإجمالي</span><span>⭐ ${SAVE.total}</span></div>`+stats;
+    `<div class="stat" style="font-weight:800"><span>الإجمالي</span><span>نجوم ${SAVE.total}</span></div>`+stats;
   document.getElementById('panel').classList.add('on');
 }
 function closePanel(){ document.getElementById('panel').classList.remove('on'); }
@@ -254,7 +254,7 @@ function home(){
   document.getElementById('fab').classList.remove('on');
   CURRENT=null; scrollTo(0,0); renderGrid();
 }
-function open(n){
+function openGame(n){
   clearAllTimers();
   CURRENT=n;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
@@ -303,7 +303,7 @@ function g1(el){
   const clues=['🔎 تحت الطاولة الكبيرة','🔎 خلف الباب','🔎 تحت الوسادة الزرقاء','🎁 مبروك! وجدت الكنز!'];
   let i=0;
   el.innerHTML=`<div class="panel">
-    <h2>🗺️ البحث عن الكنز</h2>
+    <h2>البحث عن الكنز</h2>
     <p class="sub">اضغط "التالي" حتى تصل للكنز. المكافأة تُمنح مرة واحدة.</p>
     <div id="cList"></div>
     <div class="msg" id="cMsg"></div>
@@ -324,9 +324,9 @@ function g1(el){
 
 /* ==================== 2) الطبيعة ==================== */
 function g2(el){
-  const items=['🍃 ورقة خضراء','🪨 حجر أملس','🌸 زهرة ملونة','🐜 حشرة صغيرة','🌰 بذرة','🪵 قطعة خشب'];
+  const items=['ورقة خضراء','حجر أملس','زهرة ملونة','حشرة صغيرة','بذرة','قطعة خشب'];
   el.innerHTML=`<div class="panel">
-    <h2>🔍 الاستكشاف الطبيعي</h2>
+    <h2>الاستكشاف الطبيعي</h2>
     <p class="sub">اضغط على كل عنصر تجده. المكافأة مرة واحدة فقط.</p>
     <div class="bar"><i id="nBar"></i></div>
     <div class="prog" id="nProg">0 / ${items.length}</div>
@@ -354,11 +354,11 @@ function g3(el){
   const colors=['#e63946','#2a9d8f','#ffb703','#8338ec','#4cc9f0'];
   let sel=colors[0], fired=0;
   el.innerHTML=`<div class="panel">
-    <h2>🧪 مختبر المطبخ</h2>
+    <h2>مختبر المطبخ</h2>
     <p class="sub">اختر لونًا ثم "فجّر". يمكنك التجربة 3 مرات فقط للمكافأة.</p>
     <div class="swatches" id="sw"></div>
-    <div class="volcano" id="vol">🌋</div>
-    <button class="coral" id="boom">💥 فجّر البركان!</button>
+    <div class="volcano" id="vol" style="font-size:60px;text-align:center;margin:20px 0">🌋</div>
+    <button class="coral" id="boom">فجّر البركان!</button>
     <div class="msg" id="vMsg"></div>
   </div>`;
   document.getElementById('sw').innerHTML=colors.map((c,k)=>`<div class="sw ${k===0?'sel':''}" data-c="${c}" style="background:${c}"></div>`).join('');
@@ -391,7 +391,7 @@ function g4(el){
   const dirs=[{k:'شمال',a:'⬆'},{k:'جنوب',a:'⬇'},{k:'شرق',a:'➡'},{k:'غرب',a:'⬅'}];
   let score=0, target=null, timer=null, timeLeft=0, playing=false;
   el.innerHTML=`<div class="panel">
-    <h2>🧭 لعبة الاتجاهات</h2>
+    <h2>لعبة الاتجاهات</h2>
     <p class="sub">اضغط الاتجاه الصحيح قبل انتهاء الوقت. كل 5 إجابات = 5 نجوم (حد أقصى 20).</p>
     <div class="compass" id="prompt">اضغط "ابدأ"</div>
     <div class="timer"><i id="tBar"></i></div>
@@ -448,12 +448,12 @@ function g4(el){
 function g5(el){
   let coins=0, max=0;
   el.innerHTML=`<div class="panel">
-    <h2>🏗️ بناء الجسر</h2>
+    <h2>بناء الجسر</h2>
     <p class="sub">أضف عملات حتى ينهار. مكافأة إذا تحمل 8+ عملات (مرة واحدة).</p>
     <div class="bridge" id="br">🌉</div>
     <div class="prog" id="coins">العملات: 0</div>
-    <button class="mint" id="add">🪙 أضف عملة</button>
-    <button class="ghost" id="reset">🔄 جسر جديد</button>
+    <button class="mint" id="add">أضف عملة</button>
+    <button class="ghost" id="reset">جسر جديد</button>
     <div class="msg" id="bMsg"></div>
   </div>`;
   function reset(){
@@ -494,7 +494,7 @@ function g6(el){
   ];
   let target=null, solved=0;
   el.innerHTML=`<div class="panel">
-    <h2>🐾 آثار الحيوانات</h2>
+    <h2>آثار الحيوانات</h2>
     <p class="sub">خمّن الحيوان من الوصف. كل 4 إجابات صحيحة = 6 نجوم (حد أقصى 12).</p>
     <div class="animal" id="ico">❓</div>
     <div class="msg" id="hint"></div>
@@ -533,7 +533,7 @@ function g7(el){
   ];
   let stamps=0;
   el.innerHTML=`<div class="panel">
-    <h2>🌍 جواز السفر</h2>
+    <h2>جواز السفر</h2>
     <p class="sub">اضغط على كل دولة لجمع ختمها. المكافأة عند إكمال الكل.</p>
     <div class="bar"><i id="pBar"></i></div>
     <div class="prog" id="pProg">الأختام: 0 / 5</div>
@@ -559,7 +559,7 @@ function g7(el){
 function g8(el){
   let minReached=200, maxReached=0;
   el.innerHTML=`<div class="panel">
-    <h2>🔦 لعبة الظلال</h2>
+    <h2>لعبة الظلال</h2>
     <p class="sub">حرّك الشريط لتجربة الحجمين: أقل من 60 وأكبر من 170 لتحصل على النجمة.</p>
     <div class="stage"><div class="ball" id="ball"></div></div>
     <input type="range" id="rng" min="40" max="180" value="100">
@@ -593,10 +593,10 @@ function g9(el){
   ];
   let target=null, solved=0;
   el.innerHTML=`<div class="panel">
-    <h2>🧩 صندوق اللمس</h2>
+    <h2>صندوق اللمس</h2>
     <p class="sub">اقرأ الوصف ثم خمّن الشيء. كل 4 إجابات = 6 نجوم (حد أقصى 12).</p>
     <div class="msg" id="tHint" style="font-size:17px">🎁 اضغط "اسحب شيئًا"</div>
-    <button class="mint" id="draw">🎲 اسحب شيئًا</button>
+    <button class="mint" id="draw">اسحب شيئًا</button>
     <div class="row" id="opts"></div>
     <div class="msg" id="tMsg"></div>
   </div>`;
@@ -624,15 +624,15 @@ function g9(el){
 /* ==================== 10) رواد الفضاء ==================== */
 function g10(el){
   const tasks=[
-    '🏃 اقفز 10 قفزات',
-    '🔄 دُر حول نفسك 3 مرات',
-    '🧘 توازن على قدم واحدة 10 ثوان',
-    '💪 اعمل 5 تمرينات ضغط',
-    '🚀 قف كالصاروخ 5 ثوان'
+    'اقفز 10 قفزات',
+    'دُر حول نفسك 3 مرات',
+    'توازن على قدم واحدة 10 ثوان',
+    'اعمل 5 تمرينات ضغط',
+    'قف كالصاروخ 5 ثوان'
   ];
   let done=0;
   el.innerHTML=`<div class="panel">
-    <h2>🚀 دورة تدريب رواد الفضاء</h2>
+    <h2>دورة تدريب رواد الفضاء</h2>
     <p class="sub">أكمل كل مهمة لتتأهل للانطلاق!</p>
     <div class="rocket" id="rk">🚀</div>
     <div class="bar"><i id="rBar"></i></div>
